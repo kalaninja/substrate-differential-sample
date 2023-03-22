@@ -281,6 +281,20 @@ impl pallet_template::Config for Runtime {
 	type RuntimeEvent = RuntimeEvent;
 }
 
+parameter_types! {
+    pub PalletsWeightDistribution: substrate_differential::limits::PalletsWeightDistribution =
+        substrate_differential::limits::PalletsWeightDistribution::build_with::<PalletInfo>()
+            .add::<TemplateModule>(Perbill::from_percent(20))
+            .add::<Balances>(Perbill::from_percent(30))
+			.add::<Sudo>(Perbill::from_percent(10))
+            .build_or_panic();
+}
+
+impl substrate_differential::Config for Runtime {
+	type RuntimeCall = RuntimeCall;
+	type PalletsWeightDistribution = PalletsWeightDistribution;
+}
+
 // Create the runtime by composing the FRAME pallets that were previously configured.
 construct_runtime!(
 	pub struct Runtime
@@ -299,6 +313,7 @@ construct_runtime!(
 		Sudo: pallet_sudo,
 		// Include the custom logic from the pallet-template in the runtime.
 		TemplateModule: pallet_template,
+		Differential: substrate_differential,
 	}
 );
 
@@ -317,6 +332,7 @@ pub type SignedExtra = (
 	frame_system::CheckEra<Runtime>,
 	frame_system::CheckNonce<Runtime>,
 	frame_system::CheckWeight<Runtime>,
+	substrate_differential::DifferentiatePallets<Runtime>,
 	pallet_transaction_payment::ChargeTransactionPayment<Runtime>,
 );
 

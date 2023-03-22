@@ -4182,6 +4182,7 @@ dependencies = [
  "sp-runtime",
  "sp-timestamp",
  "substrate-build-script-utils",
+ "substrate-differential",
  "substrate-frame-rpc-system",
  "try-runtime-cli",
 ]
@@ -4219,6 +4220,7 @@ dependencies = [
  "sp-std",
  "sp-transaction-pool",
  "sp-version",
+ "substrate-differential",
  "substrate-wasm-builder",
 ]
 
@@ -7828,6 +7830,20 @@ version = "3.0.0"
 source = "git+https://github.com/paritytech/substrate.git?branch=polkadot-v0.9.39#1837f423b494254e1d27834b1c9da34b2c0c2375"
 dependencies = [
  "platforms 2.0.0",
+]
+
+[[package]]
+name = "substrate-differential"
+version = "0.1.0"
+source = "git+https://github.com/kalaninja/substrate-differential.git?branch=main#94aa0dc7bf9b1b1f8b8a3321c468b17c437ee4fc"
+dependencies = [
+ "frame-benchmarking",
+ "frame-support",
+ "frame-system",
+ "parity-scale-codec",
+ "scale-info",
+ "sp-runtime",
+ "sp-std",
 ]
 
 [[package]]
